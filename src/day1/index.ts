@@ -8,14 +8,10 @@ const goA = (input) => {
   const numbers: number[] = input.split(/\r?\n/).filter(n => n).map(n => parseInt(n, 10));
   let count = 0;
   numbers.reduce((p, c) => {
-    if(c > p) {
-     count++;
-    }
+    c > p ? count++ : 0;
     return c;
   });
   return count;
-
-
 }
 
 const goB = (input) => {
