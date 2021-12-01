@@ -5,16 +5,17 @@ const prepareInput = (rawInput: string) => rawInput
 const input = prepareInput(readInput())
 
 const goA = (input) => {
-  const numbers: number[] = input.split(/\r?\n/).filter(n => n);
+  const numbers: number[] = input.split(/\r?\n/).filter(n => n).map(n => parseInt(n, 10));
   let count = 0;
-  let previous = 1000000000;
-  numbers.forEach(n => {
-    if(previous < Number(n)) {
-      count++;
+  numbers.reduce((p, c) => {
+    if(c > p) {
+     count++;
     }
-    previous = n;
-  })
+    return c;
+  });
   return count;
+
+
 }
 
 const goB = (input) => {
