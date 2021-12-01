@@ -17,21 +17,13 @@ const goA = (input) => {
 const goB = (input) => {
   const numbers: number[] = input.split(/\r?\n/).filter(n => n).map(n => parseInt(n, 10));
   let count = 0;
-
-  let previousWindow = 1000000;
-  numbers.forEach((n, i) => {
-    let window = n + numbers[i + 1] + numbers[i + 2];
-    if(window > previousWindow) {
-      count++;
-    }
-    previousWindow = window;
-  })
+  numbers.reduce((p, c, i) => {
+    numbers[i] + numbers[i + 1] + numbers[i + 2] > p ? count++ : 0;
+    return numbers[i] + numbers[i + 1] + numbers[i + 2];
+  });
   return count;
 }
 
-/* Tests */
-
-// test()
 
 /* Results */
 
