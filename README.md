@@ -22,8 +22,3 @@ npm start day5
 ```
 
 
-## Puzzle results
-
-| Day | Puzzle 1 (ms) | Puzzle 2 (ms) |
-|-----|---------------|---------------|
-|  1  |         x  |       x |
