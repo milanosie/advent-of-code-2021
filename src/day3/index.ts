@@ -18,14 +18,44 @@ const goA = (input) => {
     zeroes > ones ? gamma += '0' : gamma += '1';
     zeroes > ones ? epsilon += '1' : epsilon += '0';
   }
-  console.log(gamma);
-  console.log(epsilon);
   return parseInt(gamma, 2) * parseInt(epsilon, 2);
 }
 
 const goB = (input) => {
-  return
+  let numbers: string[] = input.split(/\r?\n/).filter(n => n);
+  let oxygen = '';
+  let co2 = '';
+
+  for (let i = 0; i < numbers[0].length; i++) {
+    if(numbers.length > 1) {
+      let ones = 0;
+      let zeroes = 0;
+      numbers.forEach((v) => {
+        v.substring(i, i+1) == '0' ? zeroes++ : ones++;
+      });
+      zeroes > ones ? numbers = numbers.filter(n => n.substring(i, i + 1) === '0') : numbers = numbers.filter(n => n.substring(i, i + 1) === '1');
+    }
+    if(numbers.length === 1) {
+      oxygen = numbers[0];
+    }
+  }
+  numbers = input.split(/\r?\n/).filter(n => n);
+  for (let i = 0; i < numbers[0].length; i++) {
+    if(numbers.length > 1) {
+      let ones = 0;
+      let zeroes = 0;
+      numbers.forEach((v) => {
+        v.substring(i, i+1) == '0' ? zeroes++ : ones++;
+      });
+      zeroes > ones ? numbers = numbers.filter(n => n.substring(i, i + 1) === '1') : numbers = numbers.filter(n => n.substring(i, i + 1) === '0');
+    }
+    if(numbers.length === 1) {
+      co2 = numbers[0];
+    }
+  }
+  return parseInt(oxygen, 2) * parseInt(co2, 2);
 }
+
 
 /* Tests */
 
