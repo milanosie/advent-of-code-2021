@@ -97,21 +97,6 @@ const createVerticalLine = (x, y1, y2) => {
   return linesArray;
 };
 
-const createLine = (co1, co2) => {
-  const linesArray = [];
-  if(co1 < co2) {
-    for(let i = co1; i <= co2; i++) {
-      linesArray.push(parseInt(i, 10));
-    }
-  } else {
-    for(let i = co2; i <= co1; i++) {
-      linesArray.push(parseInt(i, 10));
-    }
-  }
-  return linesArray;
-
-}
-
 const goB = (input) => {
   return
 }
