@@ -124,8 +124,6 @@ const goB = (input) => {
       sum += c
     }
   })
-  console.log(winningNumber[latestBingo]);
-  console.log(latestBingo);
   return winningNumber[latestBingo] * sum
 }
 
