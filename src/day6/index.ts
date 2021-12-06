@@ -21,16 +21,10 @@ const goA = (input) => {
 const goB = (input) => {
   const fishes: number[] = input.split(",").filter(n => n).map(n => parseInt(n, 10))
 
-  let fishAges = [
-    fishes.filter(f => f == 0).length,
-    fishes.filter(f => f == 1).length,
-    fishes.filter(f => f == 2).length,
-    fishes.filter(f => f == 3).length,
-    fishes.filter(f => f == 4).length,
-    fishes.filter(f => f == 5).length,
-    fishes.filter(f => f == 6).length,
-    fishes.filter(f => f == 7).length,
-    fishes.filter(f => f == 8).length];
+  let fishAges = [];
+  for(let i = 0; i <= 8; i++) {
+    fishAges.push(fishes.filter(f => f == i).length);
+  }
 
   for(let i = 0; i <= 256; i++) {
     let newFish = 0;
