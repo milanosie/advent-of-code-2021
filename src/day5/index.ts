@@ -44,15 +44,9 @@ const goA = (input) => {
          }
 
          otherLinesArray.forEach((li) => {
-           let value = '';
            if(linesArray.indexOf(li) > -1) {
-             value = li;
+             overlaps.add(li);
            }
-
-              if(value) {
-                overlaps.add(value);
-              }
-
          })
        }
      });
