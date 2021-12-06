@@ -1,4 +1,4 @@
-import { test, readInput } from "../utils/index"
+import { readInput } from "../utils/index"
 
 const prepareInput = (rawInput: string) => rawInput
 
@@ -7,65 +7,54 @@ const input = prepareInput(readInput())
 const goA = (input) => {
   input= input.split(/\r?\n/).filter(n => n);
 
-  const overlaps = new Set();
+  const overlaps = new Array();
   const lines = createLinesArray(input);
+  const allLines = [];
   lines.forEach((line, index) => {
     const x1 = getX(line[0]);
     const y1 = getY(line[0]);
+
     const x2 = getX(line[1]);
     const y2 = getY(line[1]);
-    let linesArray;
+    let linesArray = [];
     // No diagonals
     if(x1 !== x2 && y1 !== y2) return;
 
     // horizontal
     if(y1 == y2) {
-      linesArray = createHorizontalLine(y1, x1, x2);
+      linesArray = createHorizontalLine(parseInt(y1, 10), parseInt(x1, 10), parseInt(x2, 10));
     }
-     else {
-       linesArray = createVerticalLine(x1, y1, y2);
+     else if(x1 == x2) {
+       linesArray = createVerticalLine(parseInt(x1, 10), parseInt(y1, 10), parseInt(y2, 10));
     }
+     allLines.push(linesArray);
+  });
 
-     lines.forEach((otherLine, otherIndex) => {
-       if(index !== otherIndex) {
-         const ox1 = getX(otherLine[0]);
-         const oy1 = getY(otherLine[0]);
-         const ox2 = getX(otherLine[1]);
-         const oy2 = getY(otherLine[1]);
-         if(ox1 !== ox2 && oy1 !== oy2) return;
-         let otherLinesArray;
-         // horizontal
-         if(oy1 == oy2) {
-           otherLinesArray = createHorizontalLine(oy1, ox1, ox2);
-         }
-         // vertical
-         else {
-           otherLinesArray = createVerticalLine(ox1, oy1, oy2);
-         }
-
-         otherLinesArray.forEach((li) => {
-           if(linesArray.indexOf(li) > -1) {
-             overlaps.add(li);
-           }
-         })
-       }
-     });
+  allLines.forEach((lineArray, index) => {
+    lineArray.forEach(line => {
+      allLines.forEach((anotherLineArray, anotherIndex) => {
+        if(index !== anotherIndex) {
+          if(anotherLineArray.includes(line)) {
+            if(overlaps.includes(line)) return;
+            overlaps.push(line);
+          }
+        }
+      });
+    })
   })
-  return overlaps.size;
+  return overlaps.length;
 }
 
 const getX = (line: string) =>  {
-  const x = line.substring(0, line.indexOf(','));
-  return x;
+  return line.substring(0, line.indexOf(','));
 }
 
 const getY = (line: string) => {
-  const y = line.substring(line.indexOf(',') + 1, line.length);
-  return y;
+  return line.substring(line.indexOf(',') + 1, line.length);
 }
 const createHorizontalLine = (y, x1, x2) => {
   const linesArray = [];
-  if(x1 <= x2) {
+  if(parseInt(x1, 10) <= parseInt(x2, 10)) {
     for(let i = x1; i <= x2; i++) {
       linesArray.push(i + ',' + y);
     }
@@ -79,7 +68,7 @@ const createHorizontalLine = (y, x1, x2) => {
 
 const createVerticalLine = (x, y1, y2) => {
   const linesArray = [];
-  if(y1 <= y2) {
+  if(parseInt(y1, 10) <= parseInt(y2, 10)) {
     for(let i = y1; i <= y2; i++) {
       linesArray.push(x + ',' + i);
     }
