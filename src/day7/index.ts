@@ -13,9 +13,10 @@ const median = (numbers) => {
 
 const goA = (input) => {
   const fuelArray: number[] = input.split(",").filter(n => n).map(n => parseInt(n, 10))
+  const medianValue = median(fuelArray);
   let sum = 0
   fuelArray.forEach((fuel) => {
-    sum += Math.abs(median(fuelArray) - fuel)
+    sum += Math.abs(medianValue - fuel)
   })
   return sum
 }
