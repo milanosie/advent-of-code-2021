@@ -29,11 +29,14 @@ const goA = (input) => {
 
 const goB = (input) => {
   const fuelArray: number[] = input.split(",").filter(n => n).map(n => parseInt(n, 10))
-  const medianValue = median(fuelArray);
+  let average = Math.floor(fuelArray.reduce((prev, cur) => prev + cur) / fuelArray.length);
   let sum = 0;
-  let steps = 0;
   fuelArray.forEach((fuel) => {
-    sum += Math.abs(medianValue - fuel);
+    if(fuel != average) {
+      for(let i = 1; i <= Math.abs(average - fuel); i++) {
+        sum += i;
+      }
+    }
   });
   return sum;
 }
