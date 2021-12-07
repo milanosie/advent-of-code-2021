@@ -5,40 +5,32 @@ const prepareInput = (rawInput: string) => rawInput
 const input = prepareInput(readInput())
 
 const median = (numbers) => {
-  const sorted = numbers.slice().sort((a, b) => a - b);
-  const middle = Math.floor(sorted.length / 2);
-
-  if (sorted.length % 2 === 0) {
-    return (sorted[middle - 1] + sorted[middle]) / 2;
-  }
-
-  return sorted[middle];
+  const sorted = numbers.slice().sort((a, b) => a - b)
+  const middle = Math.floor(sorted.length / 2)
+  if (sorted.length % 2 === 0) return (sorted[middle - 1] + sorted[middle]) / 2
+  return sorted[middle]
 }
 
 const goA = (input) => {
   const fuelArray: number[] = input.split(",").filter(n => n).map(n => parseInt(n, 10))
-  const medianValue = median(fuelArray);
-  let sum = 0;
+  let sum = 0
   fuelArray.forEach((fuel) => {
-    sum += Math.abs(medianValue - fuel);
-
-  });
-  return sum;
+    sum += Math.abs(median(fuelArray) - fuel)
+  })
+  return sum
 }
 
 
 const goB = (input) => {
   const fuelArray: number[] = input.split(",").filter(n => n).map(n => parseInt(n, 10))
-  let average = Math.floor(fuelArray.reduce((prev, cur) => prev + cur) / fuelArray.length);
-  let sum = 0;
+  let average = Math.floor(fuelArray.reduce((prev, cur) => prev + cur) / fuelArray.length)
+  let sum = 0
   fuelArray.forEach((fuel) => {
-    if(fuel != average) {
-      for(let i = 1; i <= Math.abs(average - fuel); i++) {
-        sum += i;
-      }
+    for (let i = 1; i <= Math.abs(average - fuel); i++) {
+      sum += i
     }
-  });
-  return sum;
+  })
+  return sum
 }
 
 
