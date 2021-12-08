@@ -32,11 +32,8 @@ const goA = (input) => {
   let count = 0;
   segments.forEach((segment) => {
     segment = segment.split('|');
-    const pattern = segment[0];
-    const output = segment[1];
     const segmentItems = segment[1].split(' ');
     segmentItems.forEach((se) => {
-
       count += searchOutput(se);
     })
   });
