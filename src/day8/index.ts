@@ -31,8 +31,91 @@ const goA = (input) => {
   return count
 }
 
+function findUniqueBetweenTwo(string1, string2) {
+  let unique: Array<string> = new Array<string>();
+  for(let i = 0; i < string1.length; i++) {
+    if(string2.indexOf(string1[i]) == -1) {
+      unique.push(string1[i]);
+    }
+  }
+  return unique;
+}
+
+function getUniquePatterns(segmentElement): string[] {
+  const elements = segmentElement.split(" ")
+  elements.sort(function(a, b) {
+    return a.length - b.length
+  })
+  const patterns = []
+  let L: Array<string>;
+  elements.forEach((element) => {
+    switch (element.length) {
+      case 2:
+        patterns[1] = element
+        break
+      case 3:
+        patterns[7] = element
+        break
+      case 4:
+        patterns[4] = element
+        L = findUniqueBetweenTwo(patterns[4], patterns[1]);
+        break
+      case 7:
+        patterns[8] = element
+        break
+      case 5:
+        if (element.indexOf(patterns[1][0]) != -1 && element.indexOf(patterns[1][1]) != -1) {
+          patterns[3] = element
+          break
+        }
+        if (element.indexOf(L[0]) != -1 && element.indexOf(L[1]) != -1) {
+          patterns[5] = element
+          break
+        }
+        patterns[2] = element
+        break
+      case 6:
+        if (element.indexOf(patterns[4][0]) != -1 && element.indexOf(patterns[4][1]) != -1
+          && element.indexOf(patterns[4][2]) != -1 && element.indexOf(patterns[4][3]) != -1) {
+          patterns[9] = element
+          break
+        }
+        if (element.indexOf(L[0]) != -1 && element.indexOf(L[1]) != -1) {
+          patterns[6] = element
+          break
+        }
+        patterns[0] = element
+        break
+    }
+  })
+  return patterns
+}
+
 const goB = (input) => {
-  return
+  let segments = input.split(/\r?\n/).filter(n => n)
+  let count = 0
+  segments.forEach((segment) => {
+    let segmentCount = ""
+    segment = segment.split("|")
+    const uniquePatterns = getUniquePatterns(segment[0])
+    const outputArray = segment[1].split(" ").filter(n => n)
+    outputArray.forEach((output) => {
+      uniquePatterns.forEach((uniquePattern, index) => {
+        if (uniquePattern.length !== output.length) return
+        let found = 0
+        for (let i = 0; i <= output.length; i++) {
+          if (output.indexOf(uniquePattern[i]) != -1) {
+            found++
+          }
+        }
+        if (found == output.length) {
+          segmentCount += index
+        }
+      })
+    })
+    count += parseInt(segmentCount, 10)
+  })
+  return count
 }
 
 /* Tests */
